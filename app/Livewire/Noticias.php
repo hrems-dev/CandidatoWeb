@@ -14,7 +14,7 @@ class Noticias extends Component
 {
     use WithFileUploads;
 
-    // Propiedades del formulario
+    // 📝 PROPIEDADES DEL FORMULARIO
     public $titulo = '';
     public $slug = '';
     public $resumen = '';
@@ -24,16 +24,24 @@ class Noticias extends Component
     public $estado = 'borrador';
     public $imagen;
     public $imagen_preview = '';
+    public $autor = '';
+    public $fecha_publicacion = '';
+    public $descripcion_corta = '';
 
-    // Control de modal y edición
+    // 🎛️ CONTROL DE MODAL Y EDICIÓN
     public $showModal = false;
     public $editingId = null;
     public $noticias = [];
 
-    // Búsqueda y filtrado
+    // 🔍 BÚSQUEDA Y FILTRADO
     public $search = '';
     public $filterEstado = '';
     public $filterTipo = '';
+
+    // 📊 ESTADÍSTICAS
+    public $totalNoticias = 0;
+    public $noticiasBorrador = 0;
+    public $noticiasPublicadas = 0;
 
     public function mount()
     {
@@ -66,6 +74,11 @@ class Noticias extends Component
         $this->noticias = $query->orderBy('fecha_publicacion', 'desc')
                                 ->orderBy('created_at', 'desc')
                                 ->get();
+
+        // 📊 ACTUALIZAR ESTADÍSTICAS
+        $this->totalNoticias = Noticia::count();
+        $this->noticiasBorrador = Noticia::where('estado', 'borrador')->count();
+        $this->noticiasPublicadas = Noticia::where('estado', 'publicado')->count();
     }
 
     public function openModal()
@@ -92,6 +105,8 @@ class Noticias extends Component
         $this->estado = 'borrador';
         $this->imagen = null;
         $this->imagen_preview = '';
+        $this->fecha_publicacion = '';
+        $this->descripcion_corta = '';
         $this->editingId = null;
     }
 
@@ -106,15 +121,17 @@ class Noticias extends Component
         $this->categoria = $noticia->categoria;
         $this->estado = $noticia->estado;
         $this->imagen_preview = $noticia->imagen ? asset('storage/' . $noticia->imagen) : '';
+        $this->fecha_publicacion = $noticia->fecha_publicacion?->format('Y-m-d H:i') ?? '';
         $this->showModal = true;
     }
 
     public function save()
     {
+        // ✅ VALIDAR CAMPOS
         $this->validate([
-            'titulo' => 'required|string|max:255',
+            'titulo' => 'required|string|max:255|unique:noticias,titulo,' . ($this->editingId ?? 'NULL'),
             'resumen' => 'required|string|max:500',
-            'contenido' => 'required|string',
+            'contenido' => 'required|string|min:10',
             'tipo' => 'required|string|in:noticia,actividad,evento',
             'categoria' => 'nullable|string|max:100',
             'estado' => 'required|string|in:borrador,publicado',
@@ -122,6 +139,7 @@ class Noticias extends Component
         ]);
 
         try {
+            // 📦 PREPARAR DATOS
             $data = [
                 'titulo' => $this->titulo,
                 'slug' => Str::slug($this->titulo . '-' . time()),
@@ -131,9 +149,10 @@ class Noticias extends Component
                 'categoria' => $this->categoria,
                 'estado' => $this->estado,
                 'fecha_publicacion' => $this->estado === 'publicado' ? now() : null,
+                'vistas' => 0,
             ];
 
-            // Manejo de imagen
+            // 📸 MANEJO DE IMAGEN
             if ($this->imagen) {
                 // Guardar nueva imagen
                 $path = $this->imagen->store('noticias', 'public');
@@ -148,28 +167,55 @@ class Noticias extends Component
                 }
             }
 
+            // 💾 GUARDAR EN BASE DE DATOS
             if ($this->editingId) {
-                // Actualizar
+                // ✏️ ACTUALIZAR NOTICIA EXISTENTE
                 $noticia = Noticia::findOrFail($this->editingId);
+
+                // Si cambió de borrador a publicado, asignar fecha
+                if ($noticia->estado === 'borrador' && $this->estado === 'publicado') {
+                    $data['fecha_publicacion'] = now();
+                }
+
                 $noticia->update($data);
-                $this->dispatch('notify', ['message' => 'Noticia actualizada correctamente', 'type' => 'success']);
+
+                // 📧 EVENTO: Noticia fue actualizada
+                NoticiaCreada::dispatch($noticia);
+
+                $this->dispatch('notify', [
+                    'message' => '✅ Noticia actualizada correctamente',
+                    'type' => 'success'
+                ]);
             } else {
-                // Crear
+                // ✨ CREAR NOTICIA NUEVA
                 $noticia = Noticia::create($data);
 
-                // Disparar eventos
+                // 📧 DISPARAR EVENTOS
                 NoticiaCreada::dispatch($noticia);
                 if ($noticia->estado === 'publicado') {
                     NoticiaPublicada::dispatch($noticia);
                 }
 
-                $this->dispatch('notify', ['message' => 'Noticia creada correctamente', 'type' => 'success']);
+                $this->dispatch('notify', [
+                    'message' => '✨ Noticia creada correctamente',
+                    'type' => 'success'
+                ]);
             }
 
+            // 🔄 ACTUALIZAR LISTA Y CERRAR MODAL
             $this->closeModal();
             $this->cargarNoticias();
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->dispatch('notify', [
+                'message' => 'Error de validación: ' . collect($e->errors())->flatten()->first(),
+                'type' => 'error'
+            ]);
         } catch (\Exception $e) {
-            $this->dispatch('notify', ['message' => 'Error: ' . $e->getMessage(), 'type' => 'error']);
+            $this->dispatch('notify', [
+                'message' => '❌ Error: ' . $e->getMessage(),
+                'type' => 'error'
+            ]);
         }
     }
 

@@ -1,27 +1,111 @@
-# 📚 ÍNDICE DE DOCUMENTACIÓN - Sistema de Guardado de Datos
+# 📚 ÍNDICE DE DOCUMENTACIÓN - CANDIDATO WEB
 
-## 📍 Dónde Empezar
+Aquí encontrarás toda la documentación explicada del proyecto. Elige el tema que quieras entender:
 
-Dependiendo de lo que necesites, lee en este orden:
+---
 
-### 🚀 Si tienes prisa (5 min)
-1. **[RESUMEN_RAPIDO.md](RESUMEN_RAPIDO.md)** - Lo esencial en 2 minutos
+## 🎯 DOCUMENTOS DISPONIBLES
 
-### 📖 Si quieres entender todo (15 min)
-1. **[README_GUARDADO_DATOS.md](README_GUARDADO_DATOS.md)** - Visión general completa
-2. **[ANTES_DESPUES_CAMBIOS.md](ANTES_DESPUES_CAMBIOS.md)** - Ver exactamente qué cambió
+### 1. **ESTRUCTURA_COMPONENTES.md**
+📍 **¿Qué es?** Resumen ejecutivo de componentes activos vs eliminados
 
-### 🧪 Si quieres probar (10 min)
-1. **[INSTRUCCIONES_PRUEBA_GUARDADO.md](INSTRUCCIONES_PRUEBA_GUARDADO.md)** - Paso a paso
-2. **[GUIA_GUARDADO_DATOS.md](GUIA_GUARDADO_DATOS.md)** - Solución de problemas
+**Contiene:**
+- ✅ Componentes Livewire en uso
+- 🗑️ Componentes eliminados
+- 📊 Tabla de secciones (Admin vs Público)
+- 🎯 Flujo por sección
 
-### 🔧 Si quieres detalles técnicos (20 min)
-1. **[VERIFICACION_GUARDADO_DATOS.md](VERIFICACION_GUARDADO_DATOS.md)** - Detalles técnicos
-2. **[RESUMEN_GUARDADO_DATOS.md](RESUMEN_GUARDADO_DATOS.md)** - Diagramas y flujos
-3. **[CHECKLIST_FINAL.md](CHECKLIST_FINAL.md)** - Verificación completa
+**Cuándo leerlo:** 
+- Si necesitas entender QUÉ componentes existen
+- Si quieres saber dónde está cada funcionalidad
+- Si acabas de entrar al proyecto
 
-### 👔 Si necesitas presentar (10 min)
-1. **[RESUMEN_EJECUTIVO_GUARDADO.md](RESUMEN_EJECUTIVO_GUARDADO.md)** - Para stakeholders
+**Tiempo de lectura:** 5 minutos
+
+---
+
+### 2. **GUIA_COMPLETA_DEL_PROYECTO.md**
+📍 **¿Qué es?** Explicación completa de cómo funciona todo el proyecto
+
+**Contiene:**
+- 🏗️ Arquitectura general
+- 🔌 Flujo Frontend → Backend → Database
+- 📍 Estructura de carpetas detallada
+- 🚀 Ejemplo práctico de citas
+- 🎮 Flujo completo de citas
+- 🗄️ Todas las tablas de la BD
+- 🔗 Controllers y sus funciones
+- 📱 Sitemap del proyecto
+- ✨ Tecnologías utilizadas
+
+**Cuándo leerlo:**
+- Si quieres entender TODO el proyecto
+- Si necesitas saber cómo se conecta Frontend con Backend
+- Si quieres ver ejemplos prácticos
+
+**Tiempo de lectura:** 20 minutos
+
+---
+
+### 3. **SISTEMA_CITAS_DETALLADO.md**
+📍 **¿Qué es?** Guía super detallada SOLO del sistema de citas
+
+**Contiene:**
+- 🔄 Flujo completo paso a paso con diagramas
+- 💻 Código completo del Frontend (con comentarios)
+- 🔧 Código completo del Backend Controller (con comentarios)
+- 🎮 Código completo del Livewire (con comentarios)
+- 🗄️ Estructura exacta de la tabla citas en BD
+- 📧 Sistema de eventos y emails
+- 🔄 Diagrama de estados de la cita
+- 🎓 Resumen técnico del flujo
+
+**Cuándo leerlo:**
+- Si quieres entender SOLO las citas en profundidad
+- Si necesitas modificar algo del sistema de citas
+- Si quieres ver el código con explicaciones línea por línea
+
+**Tiempo de lectura:** 30 minutos
+---
+
+## 🗺️ MAPA VISUAL DEL PROYECTO
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│               CANDIDATO WEB - ESTRUCTURA                    │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  SECCIONES PÚBLICAS                                        │
+│  ├─ /citas                    ← Formulario agendamiento   │
+│  ├─ /noticias                 ← Ver noticias             │
+│  ├─ /comentarios              ← Comentarios              │
+│  └─ /contacto                 ← Contacto general         │
+│                                                             │
+│  SECCIONES ADMIN (Requiere autenticación)                 │
+│  ├─ /admin/citas              ← Gestión citas            │
+│  ├─ /admin/noticias           ← Crear/editar noticias    │
+│  ├─ /admin/comentarios        ← Moderar comentarios      │
+│  ├─ /admin/contactos          ← Ver contactos            │
+│  └─ /admin/dashboard          ← Panel de control         │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+
+CAPAS DEL PROYECTO
+┌──────────────────────────────────────────────────────────┐
+│                   FRONTEND (Blade/HTML)                  │
+│         Lo que ves en el navegador del usuario            │
+└────────────────────────────────────────────────────────┬──┘
+                                                           │
+┌────────────────────────────────────────────────────────┴──┐
+│           BACKEND (Controllers/Livewire)                 │
+│       Procesa datos y lógica de negocio                 │
+└────────────────────────────────────────────────────────┬──┘
+                                                           │
+┌────────────────────────────────────────────────────────┴──┐
+│           DATABASE (MySQL/Models)                        │
+│         Almacena los datos de la aplicación              │
+└──────────────────────────────────────────────────────────┘
+```
 
 ---
 

@@ -9,9 +9,9 @@ class Contacto extends Model
 {
     use SoftDeletes;
 
-    protected  = 'contactos';
+    protected $table = 'contactos';
 
-    protected  = [
+    protected $fillable = [
         'nombre',
         'email',
         'telefono',
@@ -22,25 +22,25 @@ class Contacto extends Model
         'fecha_respuesta',
     ];
 
-    protected  = [
+    protected $casts = [
         'fecha_respuesta' => 'datetime',
     ];
 
-    public function scopeNuevos()
+    public function scopeNuevos($query)
     {
-        return ->where('estado', 'nuevo');
+        return $query->where('estado', 'nuevo');
     }
 
-    public function scopeRespondidos()
+    public function scopeRespondidos($query)
     {
-        return ->where('estado', 'respondido');
+        return $query->where('estado', 'respondido');
     }
 
-    public function responder()
+    public function responder($respuesta)
     {
-        ->update([
+        $this->update([
             'estado' => 'respondido',
-            'respuesta_admin' => ,
+            'respuesta_admin' => $respuesta,
             'fecha_respuesta' => now(),
         ]);
     }

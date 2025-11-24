@@ -2,42 +2,70 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cita extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'citas';
 
     protected $fillable = [
-        'info_candidato_id',
-        'mensaje',
-        'duracion_minutos',
+        'nombre',
+        'email',
+        'telefono',
+        'tipo_consulta',
+        'descripcion',
+        'fecha_solicitud',
+        'fecha_cita',
+        'hora_cita',
         'estado',
+        'motivo_rechazo',
+        'ubicacion',
+        'documento_identidad',
     ];
 
     protected $casts = [
-        'duracion_minutos' => 'integer',
-        'estado' => 'boolean',
+        'fecha_solicitud' => 'datetime',
+        'fecha_cita' => 'datetime',
     ];
 
-    // Relaciones
-    public function infoCandidato()
+    /**
+     * Scopes
+     */
+    public function scopePendientes($query)
     {
-        return $this->belongsTo(InfoCandidato::class, 'info_candidato_id');
+        return $query->where('estado', 'pendiente');
     }
 
-    public function reservas()
+    public function scopeAceptadas($query)
     {
-        return $this->hasMany(ReservaCita::class, 'cita_id');
+        return $query->where('estado', 'aceptada');
     }
 
-    // Scopes
-    public function scopeActivos($query)
+    public function scopeRechazadas($query)
     {
-        return $query->where('estado', true);
+        return $query->where('estado', 'rechazada');
+    }
+
+    /**
+     * Mutadores
+     */
+    public function aceptar($fecha, $hora)
+    {
+        $this->update([
+            'estado' => 'aceptada',
+            'fecha_cita' => $fecha,
+            'hora_cita' => $hora,
+        ]);
+    }
+
+    public function rechazar($motivo)
+    {
+        $this->update([
+            'estado' => 'rechazada',
+            'motivo_rechazo' => $motivo,
+        ]);
     }
 }

@@ -2,56 +2,53 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comentario extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'comentarios';
 
     protected $fillable = [
-        'mensaje',
-        'persona_id',
+        'nombre',
+        'email',
+        'contenido',
         'calificacion',
-        'fecha_comentario',
         'estado',
+        'ubicacion',
+        'verificado',
     ];
 
     protected $casts = [
-        'fecha_comentario' => 'datetime',
+        'verificado' => 'boolean',
         'calificacion' => 'integer',
-        'estado' => 'boolean',
     ];
 
-    // Relaciones
-    public function persona()
+    /**
+     * Scopes
+     */
+    public function scopeAprobados($query)
     {
-        return $this->belongsTo(Persona::class, 'persona_id');
+        return $query->where('estado', 'aprobado');
     }
 
-    public function publicaciones()
+    public function scopePendientes($query)
     {
-        return $this->belongsToMany(Publicacion::class, 'comentario_publicacion', 'comentario_id', 'publicacion_id')
-                    ->withPivot('fecha_comentario', 'estado')
-                    ->withTimestamps();
+        return $query->where('estado', 'pendiente');
     }
 
-    // Scopes
-    public function scopeActivos($query)
+    public function scopeVerificados($query)
     {
-        return $query->where('estado', true);
+        return $query->where('verificado', true);
     }
 
-    public function scopeRecientes($query)
+    /**
+     * Métodos
+     */
+    public function obtenerCalificacionEstrella()
     {
-        return $query->orderBy('fecha_comentario', 'desc');
-    }
-
-    public function scopeConCalificacion($query)
-    {
-        return $query->whereNotNull('calificacion');
+        return str_repeat('★', $this->calificacion) . str_repeat('☆', 5 - $this->calificacion);
     }
 }

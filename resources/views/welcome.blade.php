@@ -15,7 +15,6 @@
             Iniciar sesión
         </a>
     </div>
-    
     @endguest
     <!--inicio de pagina-->
     @include("/content/info-inicio")

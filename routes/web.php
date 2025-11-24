@@ -20,24 +20,27 @@ Route::get('/candidato', function () {
     return view('candidato.index');
 })->name('candidato.index');
 
-Route::get('/noticias', function () {
-    return view('noticias.index');
-})->name('noticias.index');
+// Noticias públicas
+Route::get('/noticias', [\App\Http\Controllers\NoticiaPublicaController::class, 'index'])->name('noticias.index');
+Route::get('/noticias/{slug}', [\App\Http\Controllers\NoticiaPublicaController::class, 'show'])->name('noticias.show');
+Route::get('/noticias/buscar', [\App\Http\Controllers\NoticiaPublicaController::class, 'buscar'])->name('noticias.buscar');
+Route::get('/noticias/tipo/{tipo}', [\App\Http\Controllers\NoticiaPublicaController::class, 'porTipo'])->name('noticias.porTipo');
 
-Route::get('/comentarios', function () {
-    return view('comentarios.index');
-})->name('comentarios.index');
+// Comentarios públicos
+Route::get('/comentarios', [\App\Http\Controllers\ComentarioPublicoController::class, 'index'])->name('comentarios.index');
+Route::post('/comentarios', [\App\Http\Controllers\ComentarioPublicoController::class, 'store'])->name('comentarios.store');
+Route::post('/comentarios/{id}/like', [\App\Http\Controllers\ComentarioPublicoController::class, 'like'])->name('comentarios.like');
 
+// Citas públicas
 Route::get('/citas', function () {
     return view('citas.index');
 })->name('citas.index');
-
 Route::post('/citas', [\App\Http\Controllers\CitaController::class, 'store'])->name('citas.store');
 
+// Contacto público
 Route::get('/contacto', function () {
     return view('contacto.index');
 })->name('contacto.index');
-
 Route::post('/contacto', [\App\Http\Controllers\ContactoController::class, 'store'])->name('contacto.store');
 
 // ========================================

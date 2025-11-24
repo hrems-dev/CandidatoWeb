@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- Meta Tags Básicos -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,7 +68,6 @@
 
 <!-- Scripts en Head (si es necesario) -->
 @stack('head-scripts')
-=======
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -99,4 +97,3 @@
     </style>
 </head>
 <body class="bg-gray-50">
->>>>>>> 869ef432ba127e564a03478072b13cea3e87aa74

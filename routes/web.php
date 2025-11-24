@@ -44,6 +44,9 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+    Route::get('/', function () {
+    return view('welcome'); // o la vista que uses como home
+})->name('home');
 // ========================================
 // 📌 RUTAS ADMIN (Protegidas)
 // ========================================

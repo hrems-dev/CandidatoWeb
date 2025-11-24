@@ -4,11 +4,11 @@
             {{-- Logo --}}
             <div class="flex-shrink-0">
                 <a href="{{ route('welcome') }}" class="flex items-center gap-2">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-10 w-10">
+                    <img src="{{ asset('imagen/logo.png') }}" alt="Logo" class="h-10 w-10">
                     <span class="text-2xl font-bold text-blue-900">Percy Mamani</span>
                 </a>
             </div>
-            
+
             {{-- Menu Desktop --}}
             <div class="hidden md:flex space-x-8">
                 <a href="{{ route('welcome') }}" class="text-gray-700 hover:text-blue-900 transition {{ Route::currentRouteName() === 'welcome' ? 'text-blue-900 font-semibold' : '' }}">
@@ -33,7 +33,7 @@
                     <i class="fas fa-lock mr-1"></i>Admin
                 </a>
             </div>
-            
+
             {{-- Menu Mobile --}}
             <div class="md:hidden">
                 <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-900">
@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    
+
     {{-- Mobile Menu --}}
     <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
         <a href="{{ route('welcome') }}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">Inicio</a>

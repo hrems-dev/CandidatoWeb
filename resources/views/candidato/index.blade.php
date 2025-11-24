@@ -2,7 +2,7 @@
 
 <div class="container mx-auto">
     @include('include.navbar')
-    
+
     {{-- Breadcrumb --}}
     <div class="bg-gray-100 py-4">
         <div class="max-w-7xl mx-auto px-4">
@@ -13,12 +13,12 @@
             </nav>
         </div>
     </div>
-    
+
     {{-- Main Content --}}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      
+
         <h1 class="text-5xl font-bold mb-8">Sobre Percy Mamani</h1>
-        
+
         {{-- About Section --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
             <div class="md:col-span-2">
@@ -29,7 +29,7 @@
                 <img src="{{ asset('imagen/portada.jpg') }}" alt="Percy Mamani" class="rounded-lg shadow-lg">
             </div>
         </div>
-        
+
         {{-- Experience Section --}}
         <section class="mb-12">
             <h2 class="text-3xl font-bold mb-8">Experiencia Profesional</h2>
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </section>
-        
+
         {{-- Education Section --}}
         <section class="mb-12">
             <h2 class="text-3xl font-bold mb-8">Educación</h2>
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </section>
-        
+
         {{-- Proposals Section --}}
         <section class="mb-12">
             <h2 class="text-3xl font-bold mb-8">Propuestas Principales</h2>
@@ -64,6 +64,6 @@
             </div>
         </section>
     </div>
-    
+
     @include('include.footer')
 </div>

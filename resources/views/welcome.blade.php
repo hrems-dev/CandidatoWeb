@@ -2,7 +2,7 @@
 
 <div class="container mx-auto">
     @include('include.navbar')
-    
+
     {{-- Hero Section --}}
     <section class="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,12 +21,12 @@
                     </div>
                 </div>
                 <div>
-                    <img src="{{ asset('images/portada.jpg') }}" alt="Percy Mamani" class="rounded-lg shadow-xl">
+                    <img src="{{ asset('imagen/portada.jpg') }}" alt="Percy Mamani" class="rounded-lg shadow-xl">
                 </div>
             </div>
         </div>
     </section>
-    
+
     {{-- Features Section --}}
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,7 +50,7 @@
             </div>
         </div>
     </section>
-    
+
     {{-- Call to Action --}}
     <section class="bg-blue-900 text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -61,6 +61,6 @@
             </a>
         </div>
     </section>
-    
+
     @include('include.footer')
 </div>

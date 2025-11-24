@@ -2,7 +2,7 @@
 
 <div class="container mx-auto">
     @include('include.navbar')
-    
+
     {{-- Breadcrumb --}}
     <div class="bg-gray-100 py-4">
         <div class="max-w-7xl mx-auto px-4">
@@ -13,11 +13,11 @@
             </nav>
         </div>
     </div>
-    
+
     {{-- Main Content --}}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 class="text-5xl font-bold mb-12">Lo que dicen de mi labor</h1>
-        
+
         {{-- Comments Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {{-- Comment Card Template --}}
@@ -29,7 +29,7 @@
                     </div>
                     <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-sm font-semibold">Verificado</span>
                 </div>
-                
+
                 {{-- Stars --}}
                 <div class="flex gap-1 mb-4">
                     <i class="fas fa-star text-yellow-400"></i>
@@ -38,9 +38,9 @@
                     <i class="fas fa-star text-yellow-400"></i>
                     <i class="fas fa-star text-yellow-400"></i>
                 </div>
-                
+
                 <p class="text-gray-700 mb-4">Comentario del usuario...</p>
-                
+
                 <div class="flex justify-between items-center text-sm text-gray-500">
                     <span><i class="far fa-calendar mr-2"></i>Fecha</span>
                     <span><i class="fas fa-thumbs-up mr-2"></i>123 likes</span>
@@ -55,7 +55,7 @@
                     </div>
                     <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-sm font-semibold">Verificado</span>
                 </div>
-                
+
                 {{-- Stars --}}
                 <div class="flex gap-1 mb-4">
                     <i class="fas fa-star text-yellow-400"></i>
@@ -64,9 +64,9 @@
                     <i class="fas fa-star text-yellow-400"></i>
                     <i class="fas fa-star text-yellow-400"></i>
                 </div>
-                
+
                 <p class="text-gray-700 mb-4">Comentario del usuario...</p>
-                
+
                 <div class="flex justify-between items-center text-sm text-gray-500">
                     <span><i class="far fa-calendar mr-2"></i>Fecha</span>
                     <span><i class="fas fa-thumbs-up mr-2"></i>123 likes</span>
@@ -81,7 +81,7 @@
                     </div>
                     <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-sm font-semibold">Verificado</span>
                 </div>
-                
+
                 {{-- Stars --}}
                 <div class="flex gap-1 mb-4">
                     <i class="fas fa-star text-yellow-400"></i>
@@ -90,9 +90,9 @@
                     <i class="fas fa-star text-yellow-400"></i>
                     <i class="fas fa-star text-yellow-400"></i>
                 </div>
-                
+
                 <p class="text-gray-700 mb-4">Comentario del usuario...</p>
-                
+
                 <div class="flex justify-between items-center text-sm text-gray-500">
                     <span><i class="far fa-calendar mr-2"></i>Fecha</span>
                     <span><i class="fas fa-thumbs-up mr-2"></i>123 likes</span>
@@ -106,7 +106,7 @@
                     </div>
                     <span class="bg-green-100 text-green-800 px-3 py-1 rounded text-sm font-semibold">Verificado</span>
                 </div>
-                
+
                 {{-- Stars --}}
                 <div class="flex gap-1 mb-4">
                     <i class="fas fa-star text-yellow-400"></i>
@@ -115,9 +115,9 @@
                     <i class="fas fa-star text-yellow-400"></i>
                     <i class="fas fa-star text-yellow-400"></i>
                 </div>
-                
+
                 <p class="text-gray-700 mb-4">Percy fue de gran ayuda, gracias a su asesoria gratiuita pude ganar mis problemas legale!</p>
-                
+
                 <div class="flex justify-between items-center text-sm text-gray-500">
                     <span><i class="far fa-calendar mr-2"></i>Fecha</span>
                     <span><i class="fas fa-thumbs-up mr-2"></i>123 likes</span>
@@ -125,6 +125,6 @@
             </div>
         </div>
     </div>
-    
+
     @include('include.footer')
 </div>

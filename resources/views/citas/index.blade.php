@@ -2,7 +2,7 @@
 
 <div class="container mx-auto">
     @include('include.navbar')
-    
+
     {{-- Breadcrumb --}}
     <div class="bg-gray-100 py-4">
         <div class="max-w-7xl mx-auto px-4">
@@ -13,17 +13,17 @@
             </nav>
         </div>
     </div>
-    
+
     {{-- Main Content --}}
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 class="text-5xl font-bold mb-4">Agendar Cita Legal</h1>
         <p class="text-xl text-gray-700 mb-12">Completa el formulario y recibirás una confirmación por correo. Las citas son gratuitas.</p>
-        
+
         {{-- Form Section --}}
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <form method="POST" action="#" class="space-y-6">
                 @csrf
-                
+
                 {{-- Personal Info --}}
                 <fieldset>
                     <legend class="text-2xl font-bold mb-4">Información Personal</legend>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </fieldset>
-                
+
                 {{-- Consultation Type --}}
                 <fieldset>
                     <legend class="text-2xl font-bold mb-4">Tipo de Consulta</legend>
@@ -77,13 +77,13 @@
                         </label>
                     </div>
                 </fieldset>
-                
+
                 {{-- Description --}}
                 <fieldset>
                     <legend class="text-2xl font-bold mb-4">Describe tu Situación</legend>
                     <textarea required rows="6" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" placeholder="Cuéntanos brevemente sobre tu caso..."></textarea>
                 </fieldset>
-                
+
                 {{-- Submit Button --}}
                 <div class="flex gap-4">
                     <button type="submit" class="bg-blue-900 text-white px-8 py-3 rounded font-bold hover:bg-blue-800 transition">
@@ -96,6 +96,6 @@
             </form>
         </div>
     </div>
-    
+
     @include('include.footer')
 </div>

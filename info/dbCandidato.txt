@@ -1,0 +1,84 @@
+infCandidato
+    idCandidato
+    nombreCandidato
+    apellidoCandidato
+    idUsuario(FK)
+    Profesion
+    CorreoCandidato
+    estadoCadidato
+
+
+AreaLegal
+    idAreaLegal
+    NombreAreaLegal
+    descripcionAraLegal
+    EstadoAreaLegal
+    idIinfoCandidato
+
+Comentario
+    idComentario
+    mensajeCoemntario
+    idPersona(FK)
+    fechaComentario
+    EstadoComentario
+
+persona
+    idPersona
+    nombrePersona
+    EstadoPersona
+
+CometarioPublicacion
+    idComentario(FK)
+    idPublicaciones(FK)
+    fechComentario
+    estadoComentario
+
+
+Publicaciones
+    idPublicaciones
+    tituloPublicacion
+    descripcionPublicacion
+    fechaPublicacion
+    VistasPublicicacion
+    estadoPublicaciones
+    idInfCandidato(FK)
+
+multimedia
+    idMultimedia
+    tipoMultimedia
+    direccionMultimedia
+    estadoMultimedia
+    idPublicaciones(FK)
+
+citas
+    idCita
+    mensajeCita
+
+    estado
+
+reservaCita
+    idreserva
+    idCita(FK)
+    nombrePersona
+    fechaCita
+    horaCita
+    nroCelular
+    estadoReserva
+
+Usuario
+    idUser
+    nombreUsuario
+    passworUsuario
+    rolUser
+    estadoUsurario
+
+interaccion
+    idConfiguracion
+    visitasPagina
+    estado
+
+notificaciones
+    idNotificacion
+    DescricionNotificacion
+    fechaNotificacion
+    estadoNOtificacion

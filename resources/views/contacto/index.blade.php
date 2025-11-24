@@ -42,33 +42,54 @@
         {{-- Contact Form --}}
         <div class="bg-white p-8 rounded-lg shadow-lg">
             <h2 class="text-2xl font-bold mb-6">Envía un Mensaje</h2>
-            <form method="POST" action="#" class="space-y-6">
+
+            @if ($errors->any())
+                <div class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('contacto.store') }}" class="space-y-6">
                 @csrf
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-gray-700 font-semibold mb-2">Nombre *</label>
-                        <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900">
+                        <input type="text" name="nombre" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900 @error('nombre') border-red-500 @enderror" value="{{ old('nombre') }}">
+                        @error('nombre') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                     <div>
                         <label class="block text-gray-700 font-semibold mb-2">Correo Electrónico *</label>
-                        <input type="email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900">
+                        <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900 @error('email') border-red-500 @enderror" value="{{ old('email') }}">
+                        @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Teléfono</label>
-                    <input type="tel" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900">
+                    <input type="tel" name="telefono" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" value="{{ old('telefono') }}">
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Asunto *</label>
-                    <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900">
+                    <input type="text" name="asunto" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900 @error('asunto') border-red-500 @enderror" value="{{ old('asunto') }}">
+                    @error('asunto') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Mensaje *</label>
-                    <textarea required rows="8" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900" placeholder="Tu mensaje aquí..."></textarea>
+                    <textarea name="mensaje" required rows="8" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-900 @error('mensaje') border-red-500 @enderror" placeholder="Tu mensaje aquí...">{{ old('mensaje') }}</textarea>
+                    @error('mensaje') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                 </div>
 
                 <button type="submit" class="bg-blue-900 text-white px-8 py-3 rounded font-bold hover:bg-blue-800 transition w-full md:w-auto">

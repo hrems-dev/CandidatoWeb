@@ -9,7 +9,7 @@
             </h2>
             <p class="text-gray-400 text-sm mt-1">Percy Mamani</p>
         </div>
-        
+
         <nav class="space-y-4">
             <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 rounded {{ Route::currentRouteName() === 'admin.dashboard' ? 'bg-blue-600' : 'hover:bg-gray-800' }} transition">
                 <i class="fas fa-chart-line mr-2"></i>Dashboard
@@ -27,9 +27,9 @@
                 <i class="fas fa-envelope mr-2"></i>Contactos
             </a>
         </nav>
-        
+
         <hr class="my-6 border-gray-700">
-        
+
         <div class="space-y-2">
             <a href="{{ route('profile.edit') }}" class="block px-4 py-2 rounded hover:bg-gray-800 transition text-sm">
                 <i class="fas fa-user mr-2"></i>Mi Perfil
@@ -42,7 +42,7 @@
             </form>
         </div>
     </div>
-    
+
     {{-- Main Content --}}
     <div class="flex-1 overflow-auto">
         {{-- Top Bar --}}
@@ -55,7 +55,7 @@
                 </p>
             </div>
         </div>
-        
+
         {{-- Dashboard Content --}}
         <div class="p-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -70,7 +70,7 @@
                     </div>
                     <a href="{{ route('admin.citas.index') }}" class="text-blue-500 text-sm mt-4 inline-block hover:underline">Ver todas →</a>
                 </div>
-                
+
                 {{-- Card Noticias --}}
                 <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-green-500">
                     <div class="flex justify-between items-start">
@@ -82,7 +82,7 @@
                     </div>
                     <a href="{{ route('admin.noticias.index') }}" class="text-green-500 text-sm mt-4 inline-block hover:underline">Ver todas →</a>
                 </div>
-                
+
                 {{-- Card Comentarios --}}
                 <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-yellow-500">
                     <div class="flex justify-between items-start">
@@ -94,7 +94,7 @@
                     </div>
                     <a href="{{ route('admin.comentarios.index') }}" class="text-yellow-500 text-sm mt-4 inline-block hover:underline">Ver todos →</a>
                 </div>
-                
+
                 {{-- Card Contactos --}}
                 <div class="bg-white p-6 rounded-lg shadow-md border-l-4 border-red-500">
                     <div class="flex justify-between items-start">
@@ -107,7 +107,25 @@
                     <a href="{{ route('admin.contactos.index') }}" class="text-red-500 text-sm mt-4 inline-block hover:underline">Ver todos →</a>
                 </div>
             </div>
-            
+
+            {{-- CRUD Citas Section --}}
+            <div id="citas-section" class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Citas</h2>
+                @livewire('Citas')
+            </div>
+
+            {{-- CRUD Noticias Section --}}
+            <div id="noticias-section" class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Noticias</h2>
+                @livewire('Noticias')
+            </div>
+
+            {{-- CRUD Contactos Section --}}
+            <div id="contactos-section" class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Gestión de Contactos</h2>
+                @livewire('Contactos')
+            </div>
+
             {{-- Recent Activity --}}
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="bg-white p-6 rounded-lg shadow-md">
@@ -130,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="bg-white p-6 rounded-lg shadow-md">
                     <h2 class="text-xl font-bold mb-4">Estadísticas</h2>
                     <div class="space-y-3">

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ContactoCreado;
+use App\Events\ContactoRespondido;
 use App\Models\Contacto;
 use Illuminate\Http\Request;
 
@@ -43,10 +45,33 @@ class ContactoController extends Controller
             'telefono' => 'nullable|string|max:20',
         ]);
 
-        $validated['estado'] = 'nuevo';
-        $contacto = Contacto::create($validated);
+        try {
+            $validated['estado'] = 'nuevo';
+            $contacto = Contacto::create($validated);
 
-        return response()->json($contacto, 201);
+            // Disparar evento
+            ContactoCreado::dispatch($contacto);
+
+            // Si es una petición AJAX/API, retornar JSON
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Mensaje enviado correctamente',
+                    'data' => $contacto
+                ], 201);
+            }
+
+            // Si es desde formulario web, redirigir
+            return redirect()->route('contacto.index')->with('success', '✓ Tu mensaje ha sido enviado. Te contactaremos pronto.');
+        } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al enviar el mensaje: ' . $e->getMessage()
+                ], 500);
+            }
+            return back()->withErrors(['error' => 'Error al enviar el mensaje']);
+        }
     }
 
     // Actualizar un mensaje de contacto
@@ -105,6 +130,9 @@ class ContactoController extends Controller
             'respuesta_admin' => $validated['respuesta_admin'],
             'fecha_respuesta' => now(),
         ]);
+
+        // Disparar evento
+        ContactoRespondido::dispatch($contacto);
 
         return response()->json($contacto);
     }

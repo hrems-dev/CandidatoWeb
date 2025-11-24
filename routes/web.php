@@ -32,21 +32,16 @@ Route::get('/citas', function () {
     return view('citas.index');
 })->name('citas.index');
 
+Route::post('/citas', [\App\Http\Controllers\CitaController::class, 'store'])->name('citas.store');
+
 Route::get('/contacto', function () {
     return view('contacto.index');
 })->name('contacto.index');
 
-// ========================================
-// 📌 RUTAS DE AUTENTICACIÓN ADMIN
-// ========================================
-
-// Ruta de login (se maneja con Fortify)
-Route::get('dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::post('/contacto', [\App\Http\Controllers\ContactoController::class, 'store'])->name('contacto.store');
 
 // ========================================
-// 📌 RUTAS ADMIN (Protegidas)
+// 📌 RUTAS DE ADMINISTRACIÓN
 // ========================================
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {

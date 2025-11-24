@@ -22,20 +22,6 @@
                 </a>
             </div>
 
-            {{-- Contactos Nuevos --}}
-            <div class="bg-gradient-to-br from-green-600 to-green-500 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-green-100 mb-2 text-sm">Mensajes Nuevos</p>
-                        <h3 class="text-4xl font-bold">{{ $contactosNuevos ?? 0 }}</h3>
-                    </div>
-                    <i class="fas fa-envelope text-5xl text-green-300 opacity-50"></i>
-                </div>
-                <a href="#contactos-section" class="text-green-100 hover:text-white mt-4 inline-block text-sm font-semibold">
-                    Ver todos →
-                </a>
-            </div>
-
             {{-- Total Citas --}}
             <div class="bg-gradient-to-br from-purple-600 to-purple-500 text-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
                 <div class="flex items-center justify-between">
@@ -207,15 +193,7 @@
                                             </button>
                                         </div>
                                     </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="px-6 py-12 text-center text-gray-500">
-                                        <i class="fas fa-inbox text-4xl mb-3 block opacity-30"></i>
-                                        <p class="font-medium">No hay mensajes nuevos</p>
-                                    </td>
-                                </tr>
-                            @endforelse
+                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -292,73 +270,6 @@ Fecha de Solicitud: ${new Date(data.fecha_solicitud).toLocaleDateString('es-ES')
                 })
                 .catch(err => alert('Error: ' + err.message));
             }
-        }
-
-        function verDetallesContacto(contactoId) {
-            fetch(`/api/contactos/${contactoId}`)
-                .then(response => response.json())
-                .then(data => {
-                    const detalles = `
-CONTACTO #${data.id}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Nombre: ${data.nombre}
-Email: ${data.email}
-Teléfono: ${data.telefono || 'N/A'}
-Asunto: ${data.asunto}
-Mensaje: ${data.mensaje}
-Estado: ${data.estado}
-Fecha: ${new Date(data.created_at).toLocaleDateString('es-ES')}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                    `;
-                    alert(detalles);
-                })
-                .catch(err => alert('Error al cargar los detalles'));
-        }
-
-        function responderContacto(contactoId) {
-            const respuesta = prompt('Escribe tu respuesta:');
-            if (respuesta && respuesta.trim()) {
-                fetch(`/api/contactos/${contactoId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    },
-                    body: JSON.stringify({
-                        estado: 'respondido',
-                        respuesta_admin: respuesta
-                    })
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error('Error al actualizar');
-                    return response.json();
-                })
-                .then(() => {
-                    alert('✓ Respuesta enviada al correo.');
-                    location.reload();
-                })
-                .catch(err => alert('Error: ' + err.message));
-            }
-        }
-
-        function marcarManejado(contactoId) {
-            fetch(`/api/contactos/${contactoId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                },
-                body: JSON.stringify({ estado: 'manejado' })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Error al actualizar');
-                return response.json();
-            })
-            .then(() => {
-                alert('✓ Contacto marcado como manejado.');
-                location.reload();
-            })
-            .catch(err => alert('Error: ' + err.message));
         }
     </script>
 </x-layouts.app>

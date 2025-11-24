@@ -13,8 +13,11 @@ class Noticia extends Model
 
     protected $fillable = [
         'titulo',
+        'slug',
         'contenido',
+        'resumen',
         'imagen',
+        'categoria',
         'tipo',
         'estado',
         'fecha_publicacion',

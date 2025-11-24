@@ -14,17 +14,22 @@ return new class extends Migration
         Schema::create('noticias', function (Blueprint $table) {
             $table->id();
             $table->string('titulo')->unique();
+            $table->string('slug')->unique()->comment('URL amigable');
             $table->text('contenido');
+            $table->text('resumen')->nullable()->comment('Extracto para listado público');
             $table->string('imagen')->nullable();
+            $table->string('categoria')->nullable()->comment('Categoría de la noticia');
             $table->enum('tipo', ['noticia', 'actividad', 'evento'])->default('noticia');
             $table->enum('estado', ['borrador', 'publicado', 'archivado'])->default('borrador');
             $table->dateTime('fecha_publicacion')->nullable();
-            $table->integer('vistas')->default(0);
+            $table->unsignedBigInteger('vistas')->default(0);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('estado');
             $table->index('tipo');
+            $table->index('slug');
+            $table->index('categoria');
             $table->index('fecha_publicacion');
         });
     }

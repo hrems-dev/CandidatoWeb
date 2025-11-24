@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CitaCreada;
+use App\Events\CitaActualizada;
 use App\Models\Cita;
 use Illuminate\Http\Request;
 
@@ -44,18 +46,41 @@ class CitaController extends Controller
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|string|max:20',
-            'tipo_consulta' => 'required|in:asesoría legal,trámite administrativo,defensa penal,derechos laborales,familia,otro',
+            'tipo_consulta' => 'required|string',
             'descripcion' => 'required|string',
             'documento_identidad' => 'nullable|string|max:50',
             'ubicacion' => 'nullable|string|max:255',
         ]);
 
-        $validated['fecha_solicitud'] = now();
-        $validated['estado'] = 'pendiente';
+        try {
+            $validated['fecha_solicitud'] = now();
+            $validated['estado'] = 'pendiente';
 
-        $cita = Cita::create($validated);
+            $cita = Cita::create($validated);
 
-        return response()->json($cita, 201);
+            // Disparar evento de creación
+            CitaCreada::dispatch($cita);
+
+            // Si es una petición AJAX/API, retornar JSON
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Cita registrada correctamente',
+                    'data' => $cita
+                ], 201);
+            }
+
+            // Si es desde formulario web, redirigir
+            return redirect()->route('citas.index')->with('success', '✓ Tu cita ha sido registrada. Nos contactaremos pronto.');
+        } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error al registrar la cita: ' . $e->getMessage()
+                ], 500);
+            }
+            return back()->withErrors(['error' => 'Error al registrar la cita']);
+        }
     }
 
     // Actualizar una cita
@@ -116,7 +141,11 @@ class CitaController extends Controller
             'estado' => 'aceptada',
             'fecha_cita' => $validated['fecha_cita'],
             'hora_cita' => $validated['hora_cita'],
+            'fecha_respuesta_admin' => now(),
         ]);
+
+        // Disparar evento
+        CitaActualizada::dispatch($cita, 'aceptada');
 
         return response()->json($cita);
     }
@@ -137,7 +166,11 @@ class CitaController extends Controller
         $cita->update([
             'estado' => 'rechazada',
             'motivo_rechazo' => $validated['motivo_rechazo'],
+            'fecha_respuesta_admin' => now(),
         ]);
+
+        // Disparar evento
+        CitaActualizada::dispatch($cita, 'rechazada');
 
         return response()->json($cita);
     }

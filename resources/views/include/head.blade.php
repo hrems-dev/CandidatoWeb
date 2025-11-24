@@ -25,5 +25,8 @@
             font-family: 'Poppins', sans-serif;
         }
     </style>
+
+    @livewireStyles
 </head>
 <body class="bg-gray-50">
+    @livewireScripts

@@ -19,11 +19,14 @@ class Contacto extends Model
         'mensaje',
         'estado',
         'respuesta_admin',
+        'admin_id',
         'fecha_respuesta',
+        'fecha_leida',
     ];
 
     protected $casts = [
         'fecha_respuesta' => 'datetime',
+        'fecha_leida' => 'datetime',
     ];
 
     public function scopeNuevos($query)

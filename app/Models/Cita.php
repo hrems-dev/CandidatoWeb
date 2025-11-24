@@ -24,11 +24,15 @@ class Cita extends Model
         'motivo_rechazo',
         'ubicacion',
         'documento_identidad',
+        'datos_reprogramacion',
+        'fecha_respuesta_admin',
     ];
 
     protected $casts = [
         'fecha_solicitud' => 'datetime',
         'fecha_cita' => 'datetime',
+        'fecha_respuesta_admin' => 'datetime',
+        'datos_reprogramacion' => 'json',
     ];
 
     /**

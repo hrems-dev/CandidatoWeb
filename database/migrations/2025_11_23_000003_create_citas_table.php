@@ -28,17 +28,20 @@ return new class extends Migration
             $table->dateTime('fecha_solicitud');
             $table->dateTime('fecha_cita')->nullable();
             $table->time('hora_cita')->nullable();
-            $table->enum('estado', ['pendiente', 'aceptada', 'rechazada', 'completada', 'cancelada'])->default('pendiente');
+            $table->enum('estado', ['pendiente', 'aceptada', 'rechazada', 'completada', 'cancelada', 'reprogramada'])->default('pendiente');
             $table->text('motivo_rechazo')->nullable();
             $table->string('ubicacion')->nullable();
             $table->string('documento_identidad')->nullable();
+            $table->json('datos_reprogramacion')->nullable()->comment('Historial de reprogramaciones {fecha_anterior, hora_anterior}');
+            $table->dateTime('fecha_respuesta_admin')->nullable()->comment('Fecha cuando el admin respondió');
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('estado');
             $table->index('tipo_consulta');
             $table->index('fecha_cita');
             $table->index('fecha_solicitud');
+            $table->index('email');
         });
     }
 

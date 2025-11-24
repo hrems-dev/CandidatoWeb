@@ -13,6 +13,7 @@ Route::prefix('api/v1')->group(function () {
     // ========================================
     Route::get('/noticias', [\App\Http\Controllers\NoticiaController::class, 'index']);
     Route::get('/noticias/{id}', [\App\Http\Controllers\NoticiaController::class, 'show']);
+    Route::get('/noticias/slug/{slug}', [\App\Http\Controllers\NoticiaController::class, 'showBySlug']);
 
     // ========================================
     // 📌 CITAS - API

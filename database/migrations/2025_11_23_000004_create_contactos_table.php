@@ -20,12 +20,15 @@ return new class extends Migration
             $table->text('mensaje');
             $table->enum('estado', ['nuevo', 'en_revision', 'respondido', 'archivado'])->default('nuevo');
             $table->text('respuesta_admin')->nullable();
+            $table->unsignedBigInteger('admin_id')->nullable()->comment('ID del admin que respondió');
             $table->dateTime('fecha_respuesta')->nullable();
+            $table->dateTime('fecha_leida')->nullable()->comment('Fecha cuando el usuario leyó la respuesta');
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('estado');
             $table->index('created_at');
+            $table->index('email');
         });
     }
 

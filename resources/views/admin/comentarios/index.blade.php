@@ -56,7 +56,11 @@
 
         {{-- Page Content --}}
         <div class="p-8">
-            @livewire('comentarios-admin')
+            <div class="bg-white rounded-lg shadow-md p-8 text-center">
+                <i class="fas fa-comments text-6xl text-gray-300 mb-4 block"></i>
+                <h2 class="text-2xl font-bold text-gray-700 mb-2">Módulo de Comentarios</h2>
+                <p class="text-gray-600">Este módulo está en desarrollo.</p>
+            </div>
         </div>
     </div>
 </div>
